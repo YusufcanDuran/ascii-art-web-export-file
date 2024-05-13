@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #363636; /* Koyu gri arka plan */
+    color: #fff; /* Beyaz metin rengi */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #474747; /* Biraz daha açık gri içerik alanı */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #3498db;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #bbb; /* Gri tonunda label metin rengi */
+  }
+  
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #555; /* Gri tonunda kenarlık rengi */
+    border-radius: 4px;
+    background-color: #666; /* Biraz daha koyu gri arka plan */
+    color: #fff; /* Beyaz metin rengi */
+  
+    ::placeholder {
+      color: #fff; /* Beyaz placeholder metin rengi */
+    }
+  }
+  
+  button {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #c0392b;
+  }
+  
+  hr {
+    border: 0;
+    height: 1px;
+    background: #555; /* Gri tonunda çizgi rengi */
+    margin-top: 20px;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #fff; /* Beyaz metin rengi */
+    margin-top: 20px;
+  }
+  

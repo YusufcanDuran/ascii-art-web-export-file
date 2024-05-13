@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/templates/style.css">
+  <style>
+    /* .button {
+      background-color: #e67e22;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    } */
+  </style>
+  <title>ASCII Art Generator</title>
+  <script>
+    window.onload = function() {
+      const textInput = document.getElementById("text");
+      const bannerSelect = document.getElementById("banner");
+      const asciiOutput = document.getElementById("asciiOutput");
+      const generateButton = document.querySelector(".button");
+
+      generateButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Butona tıklamada sayfanın yenilenmesini engelle
+        generateAscii();
+      });
+
+      textInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Enter tuşunun varsayılan davranışını engelle
+          textInput.value += '\n'; // Yeni satıra geç
+        }
+      });
+
+      function generateAscii() {
+        let formData = new FormData();
+        formData.append('text', textInput.value);
+        formData.append('banner', bannerSelect.value);
+        fetch('/generate', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          asciiOutput.innerText = data;
+        });
+      }
+      const exportButton = document.querySelector("#exportButton");
+    exportButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      exportAscii();
+    });
+
+    function exportAscii() {
+      const text = textInput.value;
+      const banner = bannerSelect.value;
+      const url = `/export?text=${encodeURIComponent(text)}&banner=${encodeURIComponent(banner)}`;
+      fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ascii_art.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error => console.error('Export error:', error));
+    }
+  };
+</script>
+</head>
+<body>
+  <div class="container">
+    <h1 id="asciii"><i>ASCII Art Generator</i></h1>
+    <form id="asciiForm" action="/generate" method="POST">
+      <div>
+        <label id="yazi" for="text"><i>Text:</i></label>
+        <textarea id="text" name="text" rows="4" cols="50" placeholder="Text Here"></textarea>
+      </div>
+      <div>
+        <label for="banner"><i>Banner:</i></label>
+        <select id="banner" name="banner">
+          <option value="standard"><i>Standard</i></option>
+          <option value="shadow"><i>Shadow</i></option>
+          <option value="thinkertoy"><i>ThinkerToy</i></option>
+        </select>
+      </div>
+      <div>
+        <button class="button">Generate</button>
+        <button id="exportButton" class="button">Export</button>
+      </div>
+      <hr>
+    </form>
+  </div>
+  <pre id="asciiOutput"></pre>
+</body>
+</html>
